@@ -1,16 +1,18 @@
-import Fastify from "fastify";
+const fastify = require("fastify")({ logger: true });
+const dotenv = require("dotenv");
 
-const fastify = Fastify({
-  logger: true,
-});
-// CommonJs
-const fastify = require("fastify")({
-  logger: true,
+dotenv.config();
+
+fastify.register(require("fastify-mongodb"), {
+  forceClose: true,
+  url: process.env.CONNECT_DB,
 });
 
-// Declare a route
-fastify.get("/", function (request, reply) {
-  reply.send({ hello: "world" });
+fastify.register(require("./routes/hotels"), { prefix: "/hotels" });
+
+// server test route
+fastify.get("/", function (req, res) {
+  res.send({ message: "hotel server is running!!!!" });
 });
 
 // Run the server!
@@ -19,7 +21,7 @@ fastify.listen(PORT, function (err, address) {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
-  }else{
-      console.log(`Server is now listening on ${PORT}`);
+  } else {
+    console.log(`Server is now listening on ${PORT}`);
   }
 });
