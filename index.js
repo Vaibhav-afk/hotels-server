@@ -21,20 +21,19 @@ mongoose
 // register swagger
 fastify.register(require("@fastify/swagger"), swagger.options);
 
-// server test route
-fastify.get("/", function (req, reply) {
-  reply.send({ message: "hotel server is running!!!!" });
-});
+// // server test route
+// fastify.get("/", function (req, reply) {
+//   reply.send({ message: "hotel server is running!!!!" });
+// });
 
 routes.forEach((route, index) => {
   fastify.route(route);
 });
 
 // Run the server!
-const PORT = process.env.PORT || 8000;
 const start = async () => {
   try {
-    await fastify.listen(PORT);
+    await fastify.listen(8000 || process.env.PORT);
     fastify.swagger();
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
   } catch (err) {
