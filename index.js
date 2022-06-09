@@ -19,6 +19,12 @@ mongoose
     console.log(err);
   });
 
+//Fastify-cors
+fastify.register(require("fastify-cors"), {
+  origin: "*",
+  methods: ["GET", "PUT", "POST"],
+});
+
 // register swagger
 fastify.register(require("@fastify/swagger"), swagger.options);
 
