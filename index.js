@@ -23,9 +23,9 @@ mongoose
 fastify.register(require("@fastify/swagger"), swagger.options);
 
 // server test route
-fastify.get("/", function (req, reply) {
-  reply.send({ message: "hotel server is running!!!!" });
-});
+// fastify.get("/", function (req, reply) {
+//   reply.send({ message: "hotel server is running!!!!" });
+// });
 
 routes.forEach((route, index) => {
   fastify.route(route);
